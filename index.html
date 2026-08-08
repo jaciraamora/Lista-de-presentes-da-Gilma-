@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎁 Lista de presentes da Gilma </title>
+<style>
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to bottom, #fff8fb, #ffe6f2);
+  margin: 0;
+  padding: 20px;
+  color: #4a004a;
+}
+h1 {
+  text-align: center;
+  color: #b30086;
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+#contador {
+  text-align: center;
+  font-size: 17px; /* contador menor */
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #c71585;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+li {
+  background: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s;
+  color: #4a004a; /* nome do presente */
+}
+li:hover { transform: scale(1.02); }
+button {
+  background: #b30086;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover { background: #7a005e; }
+button:disabled { background: grey; cursor: not-allowed; }
+.reservadoPor {
+  color: grey;      /* só "Reservado por" muda de cor */
+  font-style: italic;
+  font-size:14px;
+}
+</style>
+</head>
+<body>
+<h1> ❤️Lista de presentes da Gilma❤️ </h1>
+<div id="contador">0 / 20</div>
+<ul id="listaPresentes"></ul>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+// Config Firebase
+const firebaseConfig = {
+ // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCkYqEK6h980afoiAAinQ0YY0N1pC5i9SA",
+  authDomain: "lista-de-presentes-gil.firebaseapp.com",
+  databaseURL: "https://lista-de-presentes-gil-default-rtdb.firebaseio.com",
+  projectId: "lista-de-presentes-gil",
+  storageBucket: "lista-de-presentes-gil.firebasestorage.app",
+  messagingSenderId: "31477192399",
+  appId: "1:31477192399:web:de4d7d0c85170a613409ba"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+};
+
+// Inicializa Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const listaRef = ref(db, "presentes");
+
+// Atualiza contador
+function atualizarContador(dados){
+  const total = Object.keys(dados).length;
+  const reservados = Object.values(dados).filter(i => i.reservado).length;
+  const restantes = total - reservados;
+  document.getElementById("contador").innerText = `${reservados} / ${restantes}`;
+}
+
+// Atualiza lista em tempo real
+onValue(listaRef, (snapshot) => {
+  const dados = snapshot.val();
+  if(!dados) return;
+
+  atualizarContador(dados);
+
+  let html = "";
+  for (let id in dados){
+    const item = dados[id];
+    html += `
+      <li>
+        <div>
+          <b>${item.nome}</b><br>
+          ${item.reservado ? `<span class="reservadoPor">Reservado por: ${item.por}</span>` : "Disponível"}
+        </div>
+        ${!item.reservado ? `<button onclick="reservar('${id}')">Reservar</button>` : `<button disabled>Reservado</button>`}
+      </li>
+    `;
+  }
+
+  document.getElementById("listaPresentes").innerHTML = html;
+});
+
+// Função de reserva
+window.reservar = function(id){
+  const nome = prompt("Digite seu nome:");
+  if(!nome) return;
+
+  update(ref(db,"presentes/"+id),{
+    reservado: true,
+    por: nome
+  });
+}
+</script>
+</body>
+</html>
