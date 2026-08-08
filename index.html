@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎁 Lista de presentes da Gilma </title>
+
+<title>🎁 Lista de presentes da Gilma</title>
+
 <style>
 body {
   font-family: "Poppins", sans-serif;
@@ -12,25 +14,29 @@ body {
   padding: 20px;
   color: #4a004a;
 }
+
 h1 {
   text-align: center;
   color: #b30086;
   font-size: 27px;
   margin-bottom: 10px;
 }
+
 #contador {
   text-align: center;
-  font-size: 17px; /* contador menor */
+  font-size: 17px;
   font-weight: bold;
   margin-bottom: 20px;
   color: #c71585;
 }
+
 ul {
   list-style: none;
   padding: 0;
   max-width: 700px;
   margin: 0 auto;
 }
+
 li {
   background: white;
   padding: 15px;
@@ -41,9 +47,13 @@ li {
   justify-content: space-between;
   align-items: center;
   transition: transform 0.2s;
-  color: #4a004a; /* nome do presente */
+  color: #4a004a;
 }
-li:hover { transform: scale(1.02); }
+
+li:hover {
+  transform: scale(1.02);
+}
+
 button {
   background: #b30086;
   color: white;
@@ -52,32 +62,46 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
-button:hover { background: #7a005e; }
-button:disabled { background: grey; cursor: not-allowed; }
+
+button:hover {
+  background: #7a005e;
+}
+
+button:disabled {
+  background: grey;
+  cursor: not-allowed;
+}
+
 .reservadoPor {
-  color: grey;      /* só "Reservado por" muda de cor */
+  color: grey;
   font-style: italic;
-  font-size:14px;
+  font-size: 14px;
 }
 </style>
 </head>
+
 <body>
-<h1> ❤️Lista de presentes da Gilma❤️ </h1>
-<div id="contador">0 / 20</div>
+
+<h1>❤️ Lista de presentes da Gilma ❤️</h1>
+
+<div id="contador">0 / 30</div>
+
 <ul id="listaPresentes"></ul>
 
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-// Config Firebase
-const firebaseConfig = {
- // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import {
+  getDatabase,
+  ref,
+  onValue,
+  update
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-// Your web app's Firebase configuration
+
+/* CONFIGURAÇÃO DO FIREBASE */
+
 const firebaseConfig = {
   apiKey: "AIzaSyCkYqEK6h980afoiAAinQ0YY0N1pC5i9SA",
   authDomain: "lista-de-presentes-gil.firebaseapp.com",
@@ -88,57 +112,126 @@ const firebaseConfig = {
   appId: "1:31477192399:web:de4d7d0c85170a613409ba"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-};
 
-// Inicializa Firebase
+/* INICIALIZA O FIREBASE */
+
 const app = initializeApp(firebaseConfig);
+
 const db = getDatabase(app);
-const listaRef = ref(db, "presentes");
 
-// Atualiza contador
-function atualizarContador(dados){
+
+/*
+IMPORTANTE:
+Os teus presentes estão diretamente na raiz
+do Firebase.
+
+Por isso usamos:
+ref(db)
+e NÃO:
+ref(db, "presentes")
+*/
+
+const listaRef = ref(db);
+
+
+/* ATUALIZA O CONTADOR */
+
+function atualizarContador(dados) {
+
   const total = Object.keys(dados).length;
-  const reservados = Object.values(dados).filter(i => i.reservado).length;
+
+  const reservados = Object.values(dados)
+    .filter(item => item && item.reservado === true)
+    .length;
+
   const restantes = total - reservados;
-  document.getElementById("contador").innerText = `${reservados} / ${restantes}`;
+
+  document.getElementById("contador").innerText =
+    `${reservados} / ${restantes}`;
 }
 
-// Atualiza lista em tempo real
+
+/* ATUALIZA A LISTA EM TEMPO REAL */
+
 onValue(listaRef, (snapshot) => {
+
   const dados = snapshot.val();
-  if(!dados) return;
+
+  if (!dados) {
+    document.getElementById("listaPresentes").innerHTML =
+      "<li>Nenhum presente encontrado.</li>";
+
+    document.getElementById("contador").innerText = "0 / 0";
+
+    return;
+  }
 
   atualizarContador(dados);
 
   let html = "";
-  for (let id in dados){
+
+  for (let id in dados) {
+
     const item = dados[id];
+
+    /* Ignora qualquer informação que não seja um presente */
+    if (!item || !item.nome) continue;
+
     html += `
       <li>
+
         <div>
+
           <b>${item.nome}</b><br>
-          ${item.reservado ? `<span class="reservadoPor">Reservado por: ${item.por}</span>` : "Disponível"}
+
+          ${
+            item.reservado
+            ? `<span class="reservadoPor">
+                Reservado por: ${item.por || ""}
+              </span>`
+            : "Disponível"
+          }
+
         </div>
-        ${!item.reservado ? `<button onclick="reservar('${id}')">Reservar</button>` : `<button disabled>Reservado</button>`}
+
+        ${
+          !item.reservado
+          ? `<button onclick="reservar('${id}')">
+              Reservar
+            </button>`
+          : `<button disabled>
+              Reservado
+            </button>`
+        }
+
       </li>
     `;
   }
 
   document.getElementById("listaPresentes").innerHTML = html;
+
 });
 
-// Função de reserva
-window.reservar = function(id){
-  const nome = prompt("Digite seu nome:");
-  if(!nome) return;
 
-  update(ref(db,"presentes/"+id),{
+/* FUNÇÃO DE RESERVA */
+
+window.reservar = function(id) {
+
+  const nome = prompt("Digite seu nome:");
+
+  if (!nome) return;
+
+  update(ref(db, id), {
+
     reservado: true,
+
     por: nome
+
   });
-}
+
+};
+
 </script>
+
 </body>
 </html>
