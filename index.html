@@ -1,376 +1,799 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>🎁 Lista de presentes da Gilma</title>
+  <meta charset="UTF-8">
 
-<style>
-body {
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(to bottom, #FAFDF1, #F1F5E1);
-  margin: 0;
-  padding: 20px;
-  color: #ADBA78;
-}
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-h1 {
-  text-align: center;
-  color: #0C610B;
-  font-size: 22px;
-  margin-bottom: 10px;
-}
+  <title>🎁 Lista de presentes da Gilma</title>
 
-#contador {
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #B1C170;
-}
 
-ul {
-  list-style: none;
-  padding: 0;
-  max-width: 700px;
-  margin: 0 auto;
-}
+  <style>
 
-li {
-  background: white;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: transform 0.2s;
-  color: #4a004a;
-}
+    /* =========================
+       GERAL
+    ========================= */
 
-li:hover {
-  transform: scale(1.02);
-}
+    body {
 
-button {
-  background: #9BAB5C;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+      font-family: "Poppins", sans-serif;
 
-button:hover {
-  background: #7a005e;
-}
+      background:
+        linear-gradient(
+          to bottom,
+          #FAFDF1,
+          #F1F5E1
+        );
 
-button:disabled {
-  background: grey;
-  cursor: not-allowed;
-}
+      margin: 0;
 
-.reservadoPor {
-  color: grey;
-  font-style: italic;
-  font-size: 14px;
-}
+      padding: 20px;
 
-#botaoMusica {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: none;
-  background: #B1C170;
-  color: white;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 9999;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-}
+      color: #ADBA78;
 
-#botaoMusica.tocando {
-  animation: pulsar 1.5s infinite;
-}
+    }
 
-@keyframes pulsar {
-  0% {
-    transform: scale(1);
-  }
 
-  50% {
-    transform: scale(1.08);
-  }
+    /* =========================
+       TÍTULO
+    ========================= */
 
-  100% {
-    transform: scale(1);
-  }
-}
-</style>
+    h1 {
+
+      text-align: center;
+
+      color: #0C610B;
+
+      font-size: 22px;
+
+      margin-bottom: 10px;
+
+    }
+
+
+    /* =========================
+       CONTADOR
+    ========================= */
+
+    #contador {
+
+      text-align: center;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      margin-bottom: 20px;
+
+      color: #B1C170;
+
+    }
+
+
+    /* =========================
+       LISTA
+    ========================= */
+
+    ul {
+
+      list-style: none;
+
+      padding: 0;
+
+      max-width: 700px;
+
+      margin: 0 auto;
+
+    }
+
+
+    li {
+
+      background: white;
+
+      padding: 15px;
+
+      margin: 10px 0;
+
+      border-radius: 10px;
+
+      box-shadow:
+        0 2px 5px rgba(0,0,0,0.1);
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      transition: transform 0.2s;
+
+      color: #4a004a;
+
+    }
+
+
+    li:hover {
+
+      transform: scale(1.02);
+
+    }
+
+
+    /* =========================
+       BOTÕES DA LISTA
+    ========================= */
+
+    li button {
+
+      background: #9BAB5C;
+
+      color: white;
+
+      border: none;
+
+      padding: 8px 12px;
+
+      border-radius: 5px;
+
+      cursor: pointer;
+
+    }
+
+
+    li button:hover {
+
+      background: #7f8e48;
+
+    }
+
+
+    li button:disabled {
+
+      background: grey;
+
+      cursor: not-allowed;
+
+    }
+
+
+    /* =========================
+       RESERVADO POR
+    ========================= */
+
+    .reservadoPor {
+
+      color: grey;
+
+      font-style: italic;
+
+      font-size: 14px;
+
+    }
+
+
+    /* =========================
+       BOTÃO DA MÚSICA
+    ========================= */
+
+    #botaoMusica {
+
+      position: fixed;
+
+      bottom: 20px;
+
+      right: 20px;
+
+      width: 50px;
+
+      height: 50px;
+
+      border-radius: 50%;
+
+      border: none;
+
+      background: #B1C170;
+
+      color: white;
+
+      font-size: 22px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      cursor: pointer;
+
+      z-index: 9999;
+
+      box-shadow:
+        0 3px 10px rgba(0,0,0,0.2);
+
+    }
+
+
+    /* ANIMAÇÃO DA MÚSICA */
+
+    #botaoMusica.tocando {
+
+      animation:
+        pulsar 1.5s infinite;
+
+    }
+
+
+    @keyframes pulsar {
+
+      0% {
+
+        transform: scale(1);
+
+      }
+
+      50% {
+
+        transform: scale(1.08);
+
+      }
+
+      100% {
+
+        transform: scale(1);
+
+      }
+
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
-<h1>💚Lista de presentes da Gilma 💚</h1>
-<audio id="musica" preload="auto" loop>
-  <source src="gilma.mp3" type="audio/mpeg">
-</audio>
 
-<button id="botaoMusica" aria-label="Controlar música">
-  🎵
-</button>
+  <!-- =========================
+       TÍTULO
+  ========================= -->
 
-<div id="contador">0 / 42</div>
-
-<ul id="listaPresentes"></ul>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-
-import {
-  getDatabase,
-  ref,
-  onValue,
-  update
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+  <h1>
+    💚 Lista de presentes da Gilma 💚
+  </h1>
 
 
-/* CONFIGURAÇÃO DO FIREBASE */
+  <!-- =========================
+       MÚSICA
+  ========================= -->
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCkYqEK6h980afoiAAinQ0YY0N1pC5i9SA",
-  authDomain: "lista-de-presentes-gil.firebaseapp.com",
-  databaseURL: "https://lista-de-presentes-gil-default-rtdb.firebaseio.com",
-  projectId: "lista-de-presentes-gil",
-  storageBucket: "lista-de-presentes-gil.firebasestorage.app",
-  messagingSenderId: "31477192399",
-  appId: "1:31477192399:web:de4d7d0c85170a613409ba"
-};
+  <audio
+    id="musica"
+    preload="auto"
+    loop
+  >
 
+    <source
+      src="musica.mp3"
+      type="audio/mpeg"
+    >
 
-/* INICIALIZA O FIREBASE */
-
-const app = initializeApp(firebaseConfig);
-
-const db = getDatabase(app);
+  </audio>
 
 
-/*
-IMPORTANTE:
-Os teus presentes estão diretamente na raiz
-do Firebase.
+  <!-- BOTÃO DA MÚSICA -->
 
-Por isso usamos:
-ref(db)
-e NÃO:
-ref(db, "presentes")
-*/
-
-const listaRef = ref(db);
+  <button
+    id="botaoMusica"
+    aria-label="Controlar música"
+  >
+    🎵
+  </button>
 
 
-/* ATUALIZA O CONTADOR */
+  <!-- =========================
+       CONTADOR
+  ========================= -->
 
-function atualizarContador(dados) {
-
-  const total = Object.keys(dados).length;
-
-  const reservados = Object.values(dados)
-    .filter(item => item && item.reservado === true)
-    .length;
-
-  const restantes = total - reservados;
-
-  document.getElementById("contador").innerText =
-    `${reservados} / ${restantes}`;
-}
+  <div id="contador">
+    0 / 42
+  </div>
 
 
-/* ATUALIZA A LISTA EM TEMPO REAL */
+  <!-- =========================
+       LISTA DE PRESENTES
+  ========================= -->
 
-onValue(listaRef, (snapshot) => {
+  <ul id="listaPresentes"></ul>
 
-  const dados = snapshot.val();
 
-  if (!dados) {
-    document.getElementById("listaPresentes").innerHTML =
-      "<li>Nenhum presente encontrado.</li>";
 
-    document.getElementById("contador").innerText = "0 / 0";
+  <!-- =================================================
+       FIREBASE
+  ================================================== -->
 
-    return;
-  }
+  <script type="module">
 
-  atualizarContador(dados);
 
-  let html = "";
+    /* =========================
+       IMPORTA FIREBASE
+    ========================= */
 
-  for (let id in dados) {
+    import {
+      initializeApp
+    }
+    from
+      "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
-    const item = dados[id];
 
-    /* Ignora qualquer informação que não seja um presente */
-    if (!item || !item.nome) continue;
+    import {
+      getDatabase,
+      ref,
+      onValue,
+      update
+    }
+    from
+      "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    html += `
-      <li>
 
-        <div>
 
-          <b>${item.nome}</b><br>
+    /* =========================
+       CONFIGURAÇÃO FIREBASE
+    ========================= */
 
-          ${
-            item.reservado
-            ? `<span class="reservadoPor">
-                Reservado por: ${item.por || ""}
-              </span>`
-            : "Disponível"
-          }
+    const firebaseConfig = {
 
-        </div>
+      apiKey:
+        "AIzaSyCkYqEK6h980afoiAAinQ0YY0N1pC5i9SA",
 
-        ${
-          !item.reservado
-          ? `<button onclick="reservar('${id}')">
-              Reservar
-            </button>`
-          : `<button disabled>
-              Reservado
-            </button>`
+      authDomain:
+        "lista-de-presentes-gil.firebaseapp.com",
+
+      databaseURL:
+        "https://lista-de-presentes-gil-default-rtdb.firebaseio.com",
+
+      projectId:
+        "lista-de-presentes-gil",
+
+      storageBucket:
+        "lista-de-presentes-gil.firebasestorage.app",
+
+      messagingSenderId:
+        "31477192399",
+
+      appId:
+        "1:31477192399:web:de4d7d0c85170a613409ba"
+
+    };
+
+
+
+    /* =========================
+       INICIALIZA FIREBASE
+    ========================= */
+
+    const app =
+      initializeApp(firebaseConfig);
+
+
+    const db =
+      getDatabase(app);
+
+
+
+    /* =========================
+       REFERÊNCIA DOS PRESENTES
+       
+       IMPORTANTE:
+       Os presentes estão diretamente
+       na raiz do Firebase.
+    ========================= */
+
+    const listaRef =
+      ref(db);
+
+
+
+    /* =========================
+       ATUALIZA CONTADOR
+    ========================= */
+
+    function atualizarContador(dados) {
+
+
+      const presentes =
+        Object.values(dados)
+          .filter(
+            item =>
+              item &&
+              item.nome
+          );
+
+
+      const total =
+        presentes.length;
+
+
+      const reservados =
+        presentes.filter(
+          item =>
+            item.reservado === true
+        ).length;
+
+
+      const restantes =
+        total - reservados;
+
+
+      document
+        .getElementById("contador")
+        .innerText =
+          `${reservados} / ${restantes}`;
+
+    }
+
+
+
+    /* =========================
+       MOSTRA LISTA EM TEMPO REAL
+    ========================= */
+
+    onValue(
+      listaRef,
+      (snapshot) => {
+
+
+        const dados =
+          snapshot.val();
+
+
+        /* SEM DADOS */
+
+        if (!dados) {
+
+          document
+            .getElementById("listaPresentes")
+            .innerHTML =
+              "<li>Nenhum presente encontrado.</li>";
+
+
+          document
+            .getElementById("contador")
+            .innerText =
+              "0 / 0";
+
+
+          return;
+
         }
 
-      </li>
-    `;
-  }
-
-  document.getElementById("listaPresentes").innerHTML = html;
-
-});
 
 
-/* FUNÇÃO DE RESERVA */
+        /* ATUALIZA CONTADOR */
 
-window.reservar = function(id) {
-
-  const nome = prompt("Digite seu nome:");
-
-  if (!nome) return;
-
-  update(ref(db, id), {
-
-    reservado: true,
-
-    por: nome
-
-  });
- 
- 
-  const musica = document.getElementById("musica");
-const botaoMusica = document.getElementById("botaoMusica");
-
-let musicaIniciada = false;
+        atualizarContador(dados);
 
 
-/* =========================
-   TOCAR A MÚSICA
-========================= */
 
-function tocarMusica() {
-
-  if (!musica.paused) return;
-
-  musica.play()
-    .then(() => {
-
-      musicaIniciada = true;
-
-      botaoMusica.innerHTML = "🔊";
-
-      botaoMusica.classList.add("tocando");
-
-    })
-    .catch((erro) => {
-
-      console.log("O navegador bloqueou a música:", erro);
-
-    });
-
-}
+        let html = "";
 
 
-/* =========================
-   PRIMEIRO TOQUE NA TELA
-========================= */
 
-function primeiroToque() {
+        /* PERCORRE OS PRESENTES */
 
-  tocarMusica();
-
-}
+        for (
+          let id in dados
+        ) {
 
 
-/* Android */
-
-document.addEventListener(
-  "touchstart",
-  primeiroToque,
-  {
-    once: true,
-    passive: true
-  }
-);
+          const item =
+            dados[id];
 
 
-/* iPhone / computador */
+          /* Ignora dados que não
+             sejam presentes */
 
-document.addEventListener(
-  "click",
-  primeiroToque,
-  {
-    once: true
-  }
-);
+          if (
+            !item ||
+            !item.nome
+          ) {
 
+            continue;
 
-/* =========================
-   BOTÃO DA MÚSICA
-========================= */
-
-botaoMusica.addEventListener("click", function(event) {
-
-  event.stopPropagation();
+          }
 
 
-  if (musica.paused) {
 
-    tocarMusica();
+          /* CRIA O ITEM */
 
-  } else {
+          html += `
 
-    musica.pause();
+            <li>
 
-    botaoMusica.innerHTML = "🎵";
+              <div>
 
-    botaoMusica.classList.remove("tocando");
+                <b>
+                  ${item.nome}
+                </b>
 
-  }
+                <br>
 
-});
+                ${
+                  item.reservado
 
-</script>
+                  ?
 
-</script>
+                  `
+                    <span
+                      class="reservadoPor"
+                    >
+                      Reservado por:
+                      ${item.por || ""}
+                    </span>
+                  `
 
-</script>
+                  :
+
+                  `
+                    Disponível
+                  `
+                }
+
+              </div>
+
+
+              ${
+                !item.reservado
+
+                ?
+
+                `
+                  <button
+                    onclick="reservar('${id}')"
+                  >
+                    Reservar
+                  </button>
+                `
+
+                :
+
+                `
+                  <button disabled>
+                    Reservado
+                  </button>
+                `
+              }
+
+            </li>
+
+          `;
+
+        }
+
+
+
+        /* COLOCA NA PÁGINA */
+
+        document
+          .getElementById("listaPresentes")
+          .innerHTML =
+            html;
+
+      }
+    );
+
+
+
+    /* =========================
+       RESERVAR PRESENTE
+    ========================= */
+
+    window.reservar =
+      function(id) {
+
+
+        const nome =
+          prompt(
+            "Digite seu nome:"
+          );
+
+
+        if (!nome) {
+
+          return;
+
+        }
+
+
+        update(
+          ref(db, id),
+          {
+
+            reservado: true,
+
+            por: nome
+
+          }
+        );
+
+      };
+
+
+  </script>
+
+
+
+  <!-- =================================================
+       MÚSICA
+  ================================================== -->
+
+  <script>
+
+
+    /* =========================
+       ELEMENTOS
+    ========================= */
+
+    const musica =
+      document.getElementById("musica");
+
+
+    const botaoMusica =
+      document.getElementById("botaoMusica");
+
+
+    let musicaIniciada =
+      false;
+
+
+
+    /* =========================
+       TOCAR MÚSICA
+    ========================= */
+
+    function tocarMusica() {
+
+
+      if (
+        !musica.paused
+      ) {
+
+        return;
+
+      }
+
+
+      musica.play()
+
+        .then(
+          () => {
+
+
+            musicaIniciada =
+              true;
+
+
+            botaoMusica.innerHTML =
+              "🔊";
+
+
+            botaoMusica
+              .classList
+              .add("tocando");
+
+          }
+        )
+
+        .catch(
+          (erro) => {
+
+            console.log(
+              "O navegador bloqueou a música:",
+              erro
+            );
+
+          }
+        );
+
+    }
+
+
+
+    /* =========================
+       PRIMEIRO TOQUE NA TELA
+    ========================= */
+
+    function primeiroToque() {
+
+      tocarMusica();
+
+    }
+
+
+
+    /* ANDROID */
+
+    document.addEventListener(
+      "touchstart",
+      primeiroToque,
+      {
+        once: true,
+        passive: true
+      }
+    );
+
+
+
+    /* IPHONE / COMPUTADOR */
+
+    document.addEventListener(
+      "click",
+      primeiroToque,
+      {
+        once: true
+      }
+    );
+
+
+
+    /* =========================
+       BOTÃO DA MÚSICA
+    ========================= */
+
+    botaoMusica.addEventListener(
+      "click",
+      function(event) {
+
+
+        /* Impede que o clique
+           seja processado duas vezes */
+
+        event.stopPropagation();
+
+
+
+        /* SE ESTIVER PARADA */
+
+        if (
+          musica.paused
+        ) {
+
+
+          tocarMusica();
+
+        }
+
+
+        /* SE ESTIVER A TOCAR */
+
+        else {
+
+
+          musica.pause();
+
+
+          botaoMusica.innerHTML =
+            "🎵";
+
+
+          botaoMusica
+            .classList
+            .remove("tocando");
+
+        }
+
+      }
+    );
+
+
+  </script>
+
 
 </body>
+
 </html>
