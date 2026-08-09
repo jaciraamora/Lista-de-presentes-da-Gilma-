@@ -83,6 +83,9 @@ button:disabled {
 <body>
 
 <h1>💚Lista de presentes da Gilma 💚</h1>
+<audio id="musica" loop>
+  <source src="gilma.mp3" type="audio/mpeg">
+</audio>
 
 <div id="contador">0 / 42</div>
 
@@ -230,6 +233,22 @@ window.reservar = function(id) {
   });
 
 };
+
+const musica = document.getElementById("musica");
+
+function iniciarMusica() {
+
+    musica.play().catch(() => {});
+
+    document.removeEventListener("click", iniciarMusica);
+    document.removeEventListener("touchstart", iniciarMusica);
+
+}
+
+document.addEventListener("click", iniciarMusica);
+
+document.addEventListener("touchstart", iniciarMusica);
+
 
 </script>
 
