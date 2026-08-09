@@ -17,7 +17,7 @@ body {
 
 h1 {
   text-align: center;
-  color: #B1C170;
+  color: #0C610B;
   font-size: 22px;
   margin-bottom: 10px;
 }
@@ -55,7 +55,7 @@ li:hover {
 }
 
 button {
-  background: #B0BE78;
+  background: #9BAB5C;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -273,18 +273,19 @@ window.reservar = function(id) {
 
   });
 
-};
 const musica = document.getElementById("musica");
 const botaoMusica = document.getElementById("botaoMusica");
 
 let musicaIniciada = false;
 
 
-/* COMEÇAR AO TOCAR NA TELA */
+/* =========================
+   TOCAR A MÚSICA
+========================= */
 
-function iniciarMusica() {
+function tocarMusica() {
 
-  if (musicaIniciada) return;
+  if (!musica.paused) return;
 
   musica.play()
     .then(() => {
@@ -292,55 +293,78 @@ function iniciarMusica() {
       musicaIniciada = true;
 
       botaoMusica.innerHTML = "🔊";
+
       botaoMusica.classList.add("tocando");
 
     })
-    .catch(() => {
-      // Se o navegador bloquear, o botão continua disponível
+    .catch((erro) => {
+
+      console.log("O navegador bloqueou a música:", erro);
+
     });
+
 }
 
 
-/* PRIMEIRO TOQUE NA TELA */
+/* =========================
+   PRIMEIRO TOQUE NA TELA
+========================= */
 
-document.addEventListener("touchend", iniciarMusica, {
-  once: true,
-  passive: true
-});
+function primeiroToque() {
 
-document.addEventListener("click", iniciarMusica, {
-  once: true
-});
+  tocarMusica();
+
+}
 
 
-/* BOTÃO DE MÚSICA */
+/* Android */
+
+document.addEventListener(
+  "touchstart",
+  primeiroToque,
+  {
+    once: true,
+    passive: true
+  }
+);
+
+
+/* iPhone / computador */
+
+document.addEventListener(
+  "click",
+  primeiroToque,
+  {
+    once: true
+  }
+);
+
+
+/* =========================
+   BOTÃO DA MÚSICA
+========================= */
 
 botaoMusica.addEventListener("click", function(event) {
 
   event.stopPropagation();
 
+
   if (musica.paused) {
 
-    musica.play()
-      .then(() => {
-
-        musicaIniciada = true;
-
-        botaoMusica.innerHTML = "🔊";
-        botaoMusica.classList.add("tocando");
-
-      });
+    tocarMusica();
 
   } else {
 
     musica.pause();
 
     botaoMusica.innerHTML = "🎵";
+
     botaoMusica.classList.remove("tocando");
 
   }
 
 });
+
 </script>
 
 </script>
