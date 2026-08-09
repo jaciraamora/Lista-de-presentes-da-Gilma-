@@ -77,15 +77,56 @@ button:disabled {
   font-style: italic;
   font-size: 14px;
 }
+
+#botaoMusica {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: #B1C170;
+  color: white;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+#botaoMusica.tocando {
+  animation: pulsar 1.5s infinite;
+}
+
+@keyframes pulsar {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
 </style>
 </head>
 
 <body>
 
 <h1>💚Lista de presentes da Gilma 💚</h1>
-<audio id="musica" loop>
+<audio id="musica" preload="auto" loop>
   <source src="gilma.mp3" type="audio/mpeg">
 </audio>
+
+<button id="botaoMusica" aria-label="Controlar música">
+  🎵
+</button>
 
 <div id="contador">0 / 42</div>
 
@@ -233,22 +274,75 @@ window.reservar = function(id) {
   });
 
 };
-
+<script>
 const musica = document.getElementById("musica");
+const botaoMusica = document.getElementById("botaoMusica");
+
+let musicaIniciada = false;
+
+
+/* COMEÇAR AO TOCAR NA TELA */
 
 function iniciarMusica() {
 
-    musica.play().catch(() => {});
+  if (musicaIniciada) return;
 
-    document.removeEventListener("click", iniciarMusica);
-    document.removeEventListener("touchstart", iniciarMusica);
+  musica.play()
+    .then(() => {
 
+      musicaIniciada = true;
+
+      botaoMusica.innerHTML = "🔊";
+      botaoMusica.classList.add("tocando");
+
+    })
+    .catch(() => {
+      // Se o navegador bloquear, o botão continua disponível
+    });
 }
 
-document.addEventListener("click", iniciarMusica);
 
-document.addEventListener("touchstart", iniciarMusica);
+/* PRIMEIRO TOQUE NA TELA */
 
+document.addEventListener("touchend", iniciarMusica, {
+  once: true,
+  passive: true
+});
+
+document.addEventListener("click", iniciarMusica, {
+  once: true
+});
+
+
+/* BOTÃO DE MÚSICA */
+
+botaoMusica.addEventListener("click", function(event) {
+
+  event.stopPropagation();
+
+  if (musica.paused) {
+
+    musica.play()
+      .then(() => {
+
+        musicaIniciada = true;
+
+        botaoMusica.innerHTML = "🔊";
+        botaoMusica.classList.add("tocando");
+
+      });
+
+  } else {
+
+    musica.pause();
+
+    botaoMusica.innerHTML = "🎵";
+    botaoMusica.classList.remove("tocando");
+
+  }
+
+});
+</script>
 
 </script>
 
